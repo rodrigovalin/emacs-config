@@ -29,13 +29,6 @@
 ;; makes scroll bar dissappear
 (toggle-scroll-bar 0)
 
-
-(use-package helm
-  :config (helm-mode 1)
-  :bind (("C-c h i" . helm-imenu)
-         ("C-c h o" . helm-occur)
-         ("C-c p f" . helm-projectile)))
-
 (use-package elpy
   :ensure t
   :config (elpy-enable))
