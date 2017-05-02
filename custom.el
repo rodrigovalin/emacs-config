@@ -33,12 +33,8 @@
   :ensure t
   :config (elpy-enable))
 
-(use-package virtualenvwrapper
-  :ensure t
-  :init (setq venv-location "~/workspace/virtualenvs")
-  :config
-  (make-directory venv-location :parents))
-
+(use-package material-theme
+  :ensure t)
 ;;
 ;; Emacs Prelude modules
 ;;
