@@ -35,6 +35,27 @@
 
 (use-package material-theme
   :ensure t)
+
+(use-package rspec-mode
+  :ensure t)
+
+(use-package rubocop
+  :ensure t)
+
+(use-package vala-mode
+  :ensure t
+  :init
+  (add-hook 'after-init-hook 'whitespace-mode)
+  (add-hook 'before-save-hook 'whitespace-cleanup)
+  )
+
+(use-package slime
+  :ensure t
+  :init
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+  (setq slime-contribs '(slime-fancy)))
+
+
 ;;
 ;; Emacs Prelude modules
 ;;
