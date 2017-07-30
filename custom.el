@@ -80,3 +80,17 @@
 (require 'prelude-programming)
 (require 'prelude-common-lisp)
 (require 'prelude-emacs-lisp)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (zop-to-char zenburn-theme yaml-mode whitespace-cleanup-mode which-key volatile-highlights vala-mode use-package undo-tree toml-mode toml solarized-theme smex smartrep smartparens smart-mode-line slime rust-playground rubocop rspec-mode rainbow-mode rainbow-delimiters py-yapf ov operate-on-number move-text material-theme markdown-mode magit imenu-anywhere ido-completing-read+ helm-projectile helm-descbinds helm-ag guru-mode grizzl god-mode go-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck flx-ido expand-region elpy elisp-slime-nav elfeed editorconfig easy-kill doom-themes discover-my-major diff-hl crux cmake-mode cargo browse-kill-ring beacon anzu afternoon-theme ace-window))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
