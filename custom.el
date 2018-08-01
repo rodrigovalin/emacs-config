@@ -79,6 +79,8 @@
   (setq mac-option-modifier 'alt)
   (setq mac-command-modifier 'meta))
 
+
+(setq whitespace-line-column 120)
 ;;
 ;; Emacs Prelude modules
 ;;
