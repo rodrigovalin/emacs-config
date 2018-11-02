@@ -66,6 +66,12 @@
   (add-hook 'racer-mode-hook #'eldoc-mode)
   )
 
+(use-package teeemacs
+  :ensure t)
+
+(use-package all-the-icons
+  :ensure t)
+
 (add-hook 'racer-mode-hook #'company-mode)
 
 (global-set-key (kbd "<XF86AudioRaiseVolume>") 'end-of-defun)
@@ -168,10 +174,18 @@
 
 (require 'rust-mode)
 (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+(with-eval-after-load 'rust-mode
+  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 (setq company-tooltip-align-annotations t)
 
+;; Do not apply a theme
+(setq prelude-theme nil)
 ;; Use a nice font
+<<<<<<< HEAD
+(set-face-attribute 'default nil :family "Source Code Pro" :height 220 :weight 'regular)
+=======
 (set-face-attribute 'default nil :family "Source Code Pro" :height 90 :weight 'regular)
+>>>>>>> 9cb19782f05dfbb86c0bd1b1b9826b4b1b945237
 ;; Remove vertical bars from right side
 (fringe-mode '(10 . 0))
 
@@ -180,6 +194,14 @@
   (setq mac-option-modifier 'alt)
   (setq mac-command-modifier 'alt))
 
+(setq org-startup-indented t)
+(setq org-startup-folded "showall")
+(setq org-directory "~/workspace/")
+
+(setq whitespace-line-column 120)
+
+;; set indent in html mode to 4 spaces.
+(setq sgml-basic-offset 4)
 ;;
 ;; Emacs Prelude modules
 ;;
@@ -205,6 +227,7 @@
 (require 'prelude-common-lisp)
 (require 'prelude-emacs-lisp)
 (require 'prelude-go)
+(require 'prelude-js)
 
 ;; Activate autocomplete
 ;; TODO: Set GOPATH
