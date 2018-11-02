@@ -74,6 +74,20 @@
 ;; (require 'lsp-java)
 ;; (add-hook 'java-mode-hook #'lsp-java-enable)
 
+(setq whitespace-line-column 120)
+
+;; do not use whitespace mode everywhere.
+(setq confirm-kill-emacs 'y-or-n-p)
+
+;; Quick lisp stuff (should be installed first.)
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; Replace "sbcl" with the path to your implementation
+(setq inferior-lisp-program "sbcl")
+
+;; Where are my org files
+(setq org-agenda-files '("~/workspace/agenda"))
+
+
 (require 'cc-mode)
 
 ;; (condition-case nil
@@ -135,7 +149,7 @@
 ;; (add-hook 'java-mode-hook #'lsp-javacomp-enable)
 
 ;; (use-package lsp-javacomp
-;;   :commands lsp-javacomp-enable
+;;   :commands lsp-javacomp-enable Q
 ;;   :init
 ;;   (add-hook 'java-mode-hook
 ;;             (lambda ()
@@ -195,6 +209,8 @@
 ;; Activate autocomplete
 ;; TODO: Set GOPATH
 (setenv "GOPATH" (substitute-in-file-name "$HOME/workspace/go"))
+;; FIX: This does not seems to get $GOPATH/bin into the path. Executables in that directory are not found by emacs.
+(setenv "PATH" (concat (getenv "PATH") ":" (concat (getenv "GOPATH") "/bin")))
 ;; (ac-config-default)
 
 ;; Enable own Elisp modules
