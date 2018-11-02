@@ -66,7 +66,7 @@
   (add-hook 'racer-mode-hook #'eldoc-mode)
   )
 
-(use-package teeemacs
+(use-package treemacs
   :ensure t)
 
 (use-package all-the-icons
@@ -86,91 +86,15 @@
 (setq confirm-kill-emacs 'y-or-n-p)
 
 ;; Quick lisp stuff (should be installed first.)
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; Replace "sbcl" with the path to your implementation
-(setq inferior-lisp-program "sbcl")
+;; (setq inferior-lisp-program "sbcl")
 
 ;; Where are my org files
 (setq org-agenda-files '("~/workspace/agenda"))
 
 
 (require 'cc-mode)
-
-;; (condition-case nil
-;;     (require 'use-package)
-;;   (file-error
-;;    (require 'package)
-;;    (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-;;    (package-initialize)
-;;    (package-refresh-contents)
-;;    (package-install 'use-package)
-;;    (require 'use-package)))
-
-;; (use-package lsp-mode
-;;   :ensure t
-;;   :init (setq lsp-inhibit-message t
-;;               lsp-eldoc-render-all nil
-;;               lsp-highlight-symbol-at-point nil))
-
-;; (use-package company-lsp
-;;   :after company
-;;   :ensure t
-;;   :config
-;;   (add-hook 'java-mode-hook (lambda () (push 'company-lsp company-backends)))
-;;   (setq company-lsp-enable-snippet t
-;;         company-lsp-cache-candidates t)
-;;   (push 'java-mode company-global-modes))
-
-(require 'google-c-style)
-(add-hook 'c-mode-common-hook
-          (lambda()
-            (subword-mode)
-            (google-set-c-style)
-            (google-make-newline-indent)
-            (setq c-basic-offset 2)))
-
-;; (use-package lsp-ui
-;;   :ensure t
-;;   :config
-;;   (setq lsp-ui-sideline-enable t
-;;         lsp-ui-sideline-show-symbol t
-;;         lsp-ui-sideline-show-hover t
-;;         lsp-ui-sideline-show-code-actions t
-;;         lsp-ui-sideline-update-mode 'point))
-
-;; (use-package lsp-java
-;;   :ensure t
-;;   :requires (lsp-ui-flycheck lsp-ui-sideline)
-;;   :config
-;;   (add-hook 'java-mode-hook  'lsp-java-enable)
-;;   (add-hook 'java-mode-hook  'flycheck-mode)
-;;   (add-hook 'java-mode-hook  'company-mode)
-;;   (add-hook 'java-mode-hook  (lambda () (lsp-ui-flycheck-enable t)))
-;;   (add-hook 'java-mode-hook  'lsp-ui-sideline-mode)
-;;   (setq lsp-java--workspace-folders (list "/home/rodrigo.valin/workspace/10gen/mms")))
-;; set the projects that are going to be imported into the workspace.
-
-
-;; (require 'lsp-javacomp)
-;; (add-hook 'java-mode-hook #'lsp-javacomp-enable)
-
-;; (use-package lsp-javacomp
-;;   :commands lsp-javacomp-enable Q
-;;   :init
-;;   (add-hook 'java-mode-hook
-;;             (lambda ()
-;;               ;; Load company-lsp before enabling lsp-javacomp, so that function
-;;               ;; parameter snippet works.
-;;               (require 'company-lsp)
-;;               (lsp-javacomp-enable)
-;;               ;; Use company-lsp as the company completion backend
-;;               (set (make-variable-buffer-local 'company-backends) '(company-lsp))
-;;               ;; Optional company-mode settings
-;;               (set (make-variable-buffer-local 'company-idle-delay) 0.1)
-;;               (set (make-variable-buffer-local 'company-minimum-prefix-length) 1)))
-;;   ;; Optional, make sure JavaComp is installed. See below.
-;;   :config
-;;   (lsp-javacomp-install-server))
 
 (require 'rust-mode)
 (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
@@ -181,14 +105,14 @@
 ;; Do not apply a theme
 (setq prelude-theme nil)
 ;; Use a nice font
-(set-face-attribute 'default nil :family "Source Code Pro" :height 90 :weight 'regular)
+(set-face-attribute 'default nil :family "Source Code Pro" :height 180 :weight 'regular)
 ;; Remove vertical bars from right side
 (fringe-mode '(10 . 0))
 
 ;; Make command act as meta
 (when (eq system-type 'darwin)
-  (setq mac-option-modifier 'alt)
-  (setq mac-command-modifier 'alt))
+  (setq mac-option-modifier 'meta)
+  (setq mac-command-modifier 'meta))
 
 (setq org-startup-indented t)
 (setq org-startup-folded "showall")
