@@ -181,11 +181,7 @@
 ;; Do not apply a theme
 (setq prelude-theme nil)
 ;; Use a nice font
-<<<<<<< HEAD
-(set-face-attribute 'default nil :family "Source Code Pro" :height 220 :weight 'regular)
-=======
 (set-face-attribute 'default nil :family "Source Code Pro" :height 90 :weight 'regular)
->>>>>>> 9cb19782f05dfbb86c0bd1b1b9826b4b1b945237
 ;; Remove vertical bars from right side
 (fringe-mode '(10 . 0))
 
