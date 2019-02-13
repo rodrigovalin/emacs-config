@@ -42,6 +42,9 @@
 (use-package projectile-ripgrep
   :ensure t)
 
+(use-package htmlize
+  :ensure t)
+
 (use-package slime
   :ensure t
   :init
@@ -51,6 +54,9 @@
 (setq gofmt-command "goimports")
 (add-hook 'before-save-hook 'gofmt-before-save)
 
+
+
+(setq whitespace-line-column 120)
 ;; Whitespace mode should complain when more than 120 columns!
 (add-hook 'go-mode-hook
           (lambda ()
@@ -66,7 +72,7 @@
   (add-hook 'racer-mode-hook #'eldoc-mode)
   )
 
-(use-package teeemacs
+(use-package treemacs
   :ensure t)
 
 (use-package all-the-icons
@@ -80,9 +86,6 @@
 ;; (require 'lsp-java)
 ;; (add-hook 'java-mode-hook #'lsp-java-enable)
 
-(setq whitespace-line-column 120)
-
-;; do not use whitespace mode everywhere.
 (setq confirm-kill-emacs 'y-or-n-p)
 
 ;; Quick lisp stuff (should be installed first.)
@@ -193,8 +196,11 @@
 (setq org-startup-indented t)
 (setq org-startup-folded "showall")
 (setq org-directory "~/workspace/")
-
-(setq whitespace-line-column 120)
+(custom-set-variables
+ '(org-babel-load-languages
+   (quote ((awk . t)
+           (shell . t)
+           (python . t)))))
 
 ;; set indent in html mode to 4 spaces.
 (setq sgml-basic-offset 4)
