@@ -51,8 +51,11 @@
   (setq inferior-lisp-program "/usr/bin/sbcl")
   (setq slime-contribs '(slime-fancy)))
 
-(setq gofmt-command "goimports")
-(add-hook 'before-save-hook 'gofmt-before-save)
+(use-package nord-theme
+  :ensure t)
+
+;; (setq gofmt-command "goimports")
+;; (add-hook 'before-save-hook 'gofmt-before-save)
 
 
 
@@ -62,8 +65,8 @@
           (lambda ()
             (setq-local whitespace-line-column 120)))
 
-(use-package flycheck-rust
-  :ensure t)
+;; (use-package flycheck-rust
+;;   :ensure t)
 
 (use-package racer
   :ensure t
@@ -72,8 +75,8 @@
   (add-hook 'racer-mode-hook #'eldoc-mode)
   )
 
-(use-package treemacs
-  :ensure t)
+;; (use-package treemacs
+;;   :ensure t)
 
 (use-package all-the-icons
   :ensure t)
@@ -93,6 +96,20 @@
 ;; Replace "sbcl" with the path to your implementation
 ;; (setq inferior-lisp-program "sbcl")
 
+
+;; (setq pytest-project-root-test (lambda (dirname) (equal dirname "mongodb-enterprise-tests/tls_tests")))
+;; (setq pytest-project-root-test (lambda (dirname) (equal dirname "mongodb-enterprise-tests")))
+
+
+(use-package pytest
+  :ensure t
+  :config
+  (add-to-list 'pytest-project-root-files ".test_dir"))
+
+
+
+;; (setq pytest-cmd-flags "-x -v")
+
 ;; Where are my org files
 (setq org-agenda-files '("~/workspace/agenda"))
 
@@ -103,16 +120,16 @@
 
 (require 'cc-mode)
 
-(require 'rust-mode)
-(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
-(with-eval-after-load 'rust-mode
-  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
-(setq company-tooltip-align-annotations t)
+;; (require 'rust-mode)
+;; (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+;; (with-eval-after-load 'rust-mode
+;;   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+;; (setq company-tooltip-align-annotations t)
 
 ;; Do not apply a theme
 (setq prelude-theme nil)
 ;; Use a nice font
-(set-face-attribute 'default nil :family "Source Code Pro" :height 180 :weight 'regular)
+(set-face-attribute 'default nil :family "Source Code Pro" :height 100 :weight 'regular)
 ;; Remove vertical bars from right side
 (fringe-mode '(10 . 0))
 
@@ -125,10 +142,16 @@
 (setq org-startup-folded "showall")
 (setq org-directory "~/workspace/")
 (custom-set-variables
- '(org-babel-load-languages
-   (quote ((awk . t)
-           (shell . t)
-           (python . t)))))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("bf390ecb203806cbe351b966a88fc3036f3ff68cd2547db6ee3676e87327b311" default)))
+ '(package-selected-packages
+   (quote
+    (company-go htmlize geiser js2-mode counsel swiper exec-path-from-shell super-save zop-to-char zenburn-theme yaml-mode which-key volatile-highlights use-package undo-tree smex smartrep smartparens slime rubocop rspec-mode rainbow-mode rainbow-delimiters racer pytest projectile-ripgrep operate-on-number nord-theme move-text magit-popup magit lsp-ui json-mode imenu-anywhere ido-completing-read+ hl-todo helm-rg helm-projectile helm-descbinds helm-ag guru-mode gitignore-mode gitconfig-mode git-timemachine gist flx-ido expand-region elpy elisp-slime-nav editorconfig easy-kill doom-themes dockerfile-mode discover-my-major diminish diff-hl crux company-lsp browse-kill-ring beacon anzu ace-window))))
 
 ;; set indent in html mode to 4 spaces.
 (setq sgml-basic-offset 4)
