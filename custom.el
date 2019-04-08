@@ -42,22 +42,31 @@
 (use-package projectile-ripgrep
   :ensure t)
 
+(use-package htmlize
+  :ensure t)
+
 (use-package slime
   :ensure t
   :init
   (setq inferior-lisp-program "/usr/bin/sbcl")
   (setq slime-contribs '(slime-fancy)))
 
-(setq gofmt-command "goimports")
-(add-hook 'before-save-hook 'gofmt-before-save)
+(use-package nord-theme
+  :ensure t)
 
+;; (setq gofmt-command "goimports")
+;; (add-hook 'before-save-hook 'gofmt-before-save)
+
+
+
+(setq whitespace-line-column 120)
 ;; Whitespace mode should complain when more than 120 columns!
 (add-hook 'go-mode-hook
           (lambda ()
             (setq-local whitespace-line-column 120)))
 
-(use-package flycheck-rust
-  :ensure t)
+;; (use-package flycheck-rust
+;;   :ensure t)
 
 (use-package racer
   :ensure t
@@ -66,8 +75,8 @@
   (add-hook 'racer-mode-hook #'eldoc-mode)
   )
 
-(use-package teeemacs
-  :ensure t)
+;; (use-package treemacs
+;;   :ensure t)
 
 (use-package all-the-icons
   :ensure t)
@@ -80,33 +89,34 @@
 ;; (require 'lsp-java)
 ;; (add-hook 'java-mode-hook #'lsp-java-enable)
 
-(setq whitespace-line-column 120)
-
-;; do not use whitespace mode everywhere.
 (setq confirm-kill-emacs 'y-or-n-p)
 
 ;; Quick lisp stuff (should be installed first.)
 ;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; Replace "sbcl" with the path to your implementation
 ;; (setq inferior-lisp-program "sbcl")
+;; (setq pytest-project-root-test (lambda (dirname) (equal dirname "mongodb-enterprise-tests/tls_tests")))
+;; (setq pytest-project-root-test (lambda (dirname) (equal dirname "mongodb-enterprise-tests")))
+
+
+(use-package pytest
+  :ensure t
+  :config
+  (add-to-list 'pytest-project-root-files ".test_dir")
+  (setq pytest-cmd-flags "-x -v"))
+
 
 ;; Where are my org files
 (setq org-agenda-files '("~/workspace/agenda"))
 
+(add-hook 'json-mode-hook
+          (lambda ()
+            (make-local-variable 'js-indent-level)
+            (setq js-indent-level 2)))
 
 (use-package swiper-helm
   :ensure t
   :bind (("C-s" . swiper)))
-
-(require 'cc-mode)
-
-(require 'google-c-style)
-(add-hook 'c-mode-common-hook
-          (lambda()
-            (subword-mode)
-            (google-set-c-style)
-            (google-make-newline-indent)
-            (setq c-basic-offset 2)))
 
 
 (require 'rust-mode)
@@ -127,8 +137,8 @@
 
 ;; Make command act as meta
 (when (eq system-type 'darwin)
-  (setq mac-option-modifier 'alt)
-  (setq mac-command-modifier 'alt))
+  (setq mac-option-modifier 'meta)
+  (setq mac-command-modifier 'meta))
 
 (setq org-startup-indented t)
 (setq org-startup-folded "showall")
