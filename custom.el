@@ -86,40 +86,19 @@
 (setq confirm-kill-emacs 'y-or-n-p)
 
 ;; Quick lisp stuff (should be installed first.)
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; Replace "sbcl" with the path to your implementation
-(setq inferior-lisp-program "sbcl")
+;; (setq inferior-lisp-program "sbcl")
 
 ;; Where are my org files
 (setq org-agenda-files '("~/workspace/agenda"))
 
 
+(use-package swiper-helm
+  :ensure t
+  :bind (("C-s" . swiper)))
+
 (require 'cc-mode)
-
-;; (condition-case nil
-;;     (require 'use-package)
-;;   (file-error
-;;    (require 'package)
-;;    (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-;;    (package-initialize)
-;;    (package-refresh-contents)
-;;    (package-install 'use-package)
-;;    (require 'use-package)))
-
-;; (use-package lsp-mode
-;;   :ensure t
-;;   :init (setq lsp-inhibit-message t
-;;               lsp-eldoc-render-all nil
-;;               lsp-highlight-symbol-at-point nil))
-
-;; (use-package company-lsp
-;;   :after company
-;;   :ensure t
-;;   :config
-;;   (add-hook 'java-mode-hook (lambda () (push 'company-lsp company-backends)))
-;;   (setq company-lsp-enable-snippet t
-;;         company-lsp-cache-candidates t)
-;;   (push 'java-mode company-global-modes))
 
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook
@@ -129,48 +108,6 @@
             (google-make-newline-indent)
             (setq c-basic-offset 2)))
 
-;; (use-package lsp-ui
-;;   :ensure t
-;;   :config
-;;   (setq lsp-ui-sideline-enable t
-;;         lsp-ui-sideline-show-symbol t
-;;         lsp-ui-sideline-show-hover t
-;;         lsp-ui-sideline-show-code-actions t
-;;         lsp-ui-sideline-update-mode 'point))
-
-;; (use-package lsp-java
-;;   :ensure t
-;;   :requires (lsp-ui-flycheck lsp-ui-sideline)
-;;   :config
-;;   (add-hook 'java-mode-hook  'lsp-java-enable)
-;;   (add-hook 'java-mode-hook  'flycheck-mode)
-;;   (add-hook 'java-mode-hook  'company-mode)
-;;   (add-hook 'java-mode-hook  (lambda () (lsp-ui-flycheck-enable t)))
-;;   (add-hook 'java-mode-hook  'lsp-ui-sideline-mode)
-;;   (setq lsp-java--workspace-folders (list "/home/rodrigo.valin/workspace/10gen/mms")))
-;; set the projects that are going to be imported into the workspace.
-
-
-;; (require 'lsp-javacomp)
-;; (add-hook 'java-mode-hook #'lsp-javacomp-enable)
-
-;; (use-package lsp-javacomp
-;;   :commands lsp-javacomp-enable Q
-;;   :init
-;;   (add-hook 'java-mode-hook
-;;             (lambda ()
-;;               ;; Load company-lsp before enabling lsp-javacomp, so that function
-;;               ;; parameter snippet works.
-;;               (require 'company-lsp)
-;;               (lsp-javacomp-enable)
-;;               ;; Use company-lsp as the company completion backend
-;;               (set (make-variable-buffer-local 'company-backends) '(company-lsp))
-;;               ;; Optional company-mode settings
-;;               (set (make-variable-buffer-local 'company-idle-delay) 0.1)
-;;               (set (make-variable-buffer-local 'company-minimum-prefix-length) 1)))
-;;   ;; Optional, make sure JavaComp is installed. See below.
-;;   :config
-;;   (lsp-javacomp-install-server))
 
 (require 'rust-mode)
 (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
@@ -179,9 +116,12 @@
 (setq company-tooltip-align-annotations t)
 
 ;; Do not apply a theme
+(disable-theme 'zenburn)
 (setq prelude-theme nil)
+(setq prelude-theme 'nord)
+
 ;; Use a nice font
-(set-face-attribute 'default nil :family "Source Code Pro" :height 90 :weight 'regular)
+(set-face-attribute 'default nil :family "Roboto Mono" :height 120 :weight 'regular)
 ;; Remove vertical bars from right side
 (fringe-mode '(10 . 0))
 
@@ -193,6 +133,11 @@
 (setq org-startup-indented t)
 (setq org-startup-folded "showall")
 (setq org-directory "~/workspace/")
+
+(org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))
+
+(use-package ob-rust
+  :ensure t)
 
 (setq whitespace-line-column 120)
 
@@ -233,7 +178,7 @@
 ;; (ac-config-default)
 
 ;; Enable own Elisp modules
-(add-to-list 'load-path (substitute-in-file-name "$HOME/workspace/licorna/elisp"))
+(add-to-list 'load-path (substitute-in-file-name "$HOME/workspace/rodrigovalin/elisp"))
 (require 'kube)
 (require 'mci)
 ;; (require 'omclient)
@@ -246,18 +191,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-quickhelp-color-background "#4F4F4F")
- '(company-quickhelp-color-foreground "#DCDCCC")
  '(custom-safe-themes
    (quote
-    ("1c082c9b84449e54af757bcae23617d11f563fc9f33a832a8a2813c4d7dfb652" "e11569fd7e31321a33358ee4b232c2d3cf05caccd90f896e1df6cab228191109" "ecba61c2239fbef776a72b65295b88e5534e458dfe3e6d7d9f9cb353448a569e" "b01b91ba9276deb39aa892c105a8644ef281b4d1804ab7c48de96e9c5d2aaa48" "a156fcac344bbfdc979a5adf9cecf1c2de56c4c937549ae0571b7f11ad4fe6a9" "9d9fda57c476672acd8c6efeb9dc801abea906634575ad2c7688d055878e69d6" "8891c81848a6cf203c7ac816436ea1a859c34038c39e3cf9f48292d8b1c86528" "fe666e5ac37c2dfcf80074e88b9252c71a22b6f5d2f566df9a7aa4f9bea55ef8" "151bde695af0b0e69c3846500f58d9a0ca8cb2d447da68d7fbf4154dcf818ebc" "a566448baba25f48e1833d86807b77876a899fc0c3d33394094cf267c970749f" "a3fa4abaf08cc169b61dea8f6df1bbe4123ec1d2afeb01c17e11fdc31fc66379" default)))
- '(nrepl-message-colors
-   (quote
-    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+    ("bf390ecb203806cbe351b966a88fc3036f3ff68cd2547db6ee3676e87327b311" "7e78a1030293619094ea6ae80a7579a562068087080e01c2b8b503b27900165c" "93a0885d5f46d2aeac12bf6be1754faa7d5e28b27926b8aa812840fe7d0b7983" "151bde695af0b0e69c3846500f58d9a0ca8cb2d447da68d7fbf4154dcf818ebc" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" default)))
  '(package-selected-packages
    (quote
-    (lsp-ui lsp-java company-lsp ein csv-mode ant google-c-style golint restclient helm-rg circe less-css-mode json-mode paredit doom-themes markdown-mode gotest go-projectile go-eldoc company-go rainbow-mode elisp-slime-nav rainbow-delimiters helm-ag helm-descbinds helm-projectile helm smex ido-completing-read+ flx-ido racer flycheck-rust slime projectile-ripgrep rubocop rspec-mode elpy use-package zop-to-char zenburn-theme yaml-mode which-key volatile-highlights undo-tree smartrep smartparens smart-mode-line projectile operate-on-number move-text magit imenu-anywhere hl-todo guru-mode grizzl god-mode go-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region editorconfig easy-kill dockerfile-mode discover-my-major diminish diff-hl crux browse-kill-ring beacon anzu ace-window)))
- '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838"))))
+    (nord-theme geiser lsp-ui company-lsp counsel :ob-rust ob-rust cargo go-playground go-snippets swiper-helm helm-rg yaml-mode markdown-mode doom-themes json-mode js2-mode gotest go-projectile go-eldoc company-go go-mode rainbow-mode elisp-slime-nav rainbow-delimiters helm-ag helm-descbinds helm-projectile helm smex ido-completing-read+ flx-ido zop-to-char zenburn-theme which-key volatile-highlights use-package undo-tree treemacs super-save smartrep smartparens slime rubocop rspec-mode racer projectile-ripgrep operate-on-number move-text magit imenu-anywhere hl-todo guru-mode google-c-style gitignore-mode gitconfig-mode git-timemachine gist flycheck-rust expand-region exec-path-from-shell elpy editorconfig easy-kill discover-my-major diminish diff-hl crux browse-kill-ring beacon anzu all-the-icons))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
