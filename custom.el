@@ -17,6 +17,9 @@
 ;; disable emacs original movement keys
 (setq prelude-guru nil)
 
+(use-package forge
+  :after magit)
+
 ;; menu bar is hidden
 (menu-bar-mode -1)
 
@@ -51,8 +54,8 @@
   (setq inferior-lisp-program "/usr/bin/sbcl")
   (setq slime-contribs '(slime-fancy)))
 
-(use-package nord-theme
-  :ensure t)
+;; (use-package nord-theme
+;;   :ensure t)
 
 ;; (setq gofmt-command "goimports")
 ;; (add-hook 'before-save-hook 'gofmt-before-save)
@@ -65,8 +68,8 @@
           (lambda ()
             (setq-local whitespace-line-column 120)))
 
-;; (use-package flycheck-rust
-;;   :ensure t)
+(use-package flycheck-rust
+  :ensure t)
 
 (use-package racer
   :ensure t
@@ -74,9 +77,6 @@
   (add-hook 'rust-mode-hook #'racer-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode)
   )
-
-;; (use-package treemacs
-;;   :ensure t)
 
 (use-package all-the-icons
   :ensure t)
@@ -92,9 +92,9 @@
 (setq confirm-kill-emacs 'y-or-n-p)
 
 ;; Quick lisp stuff (should be installed first.)
-;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; Replace "sbcl" with the path to your implementation
-;; (setq inferior-lisp-program "sbcl")
+(setq inferior-lisp-program "sbcl")
 ;; (setq pytest-project-root-test (lambda (dirname) (equal dirname "mongodb-enterprise-tests/tls_tests")))
 ;; (setq pytest-project-root-test (lambda (dirname) (equal dirname "mongodb-enterprise-tests")))
 
@@ -118,7 +118,6 @@
   :ensure t
   :bind (("C-s" . swiper)))
 
-
 (require 'rust-mode)
 (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
 (with-eval-after-load 'rust-mode
@@ -126,12 +125,12 @@
 (setq company-tooltip-align-annotations t)
 
 ;; Do not apply a theme
-(disable-theme 'zenburn)
-(setq prelude-theme nil)
-(setq prelude-theme 'nord)
+;; (disable-theme 'zenburn)
+;; (setq prelude-theme nil)
+;; (setq prelude-theme 'nord)
 
 ;; Use a nice font
-(set-face-attribute 'default nil :family "Roboto Mono" :height 120 :weight 'regular)
+(set-face-attribute 'default nil :family "Source Code Pro" :height 90 :weight 'regular)
 ;; Remove vertical bars from right side
 (fringe-mode '(10 . 0))
 
@@ -195,21 +194,17 @@
 
 (setq prelude-flyspell nil)
 
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("bf390ecb203806cbe351b966a88fc3036f3ff68cd2547db6ee3676e87327b311" "7e78a1030293619094ea6ae80a7579a562068087080e01c2b8b503b27900165c" "93a0885d5f46d2aeac12bf6be1754faa7d5e28b27926b8aa812840fe7d0b7983" "151bde695af0b0e69c3846500f58d9a0ca8cb2d447da68d7fbf4154dcf818ebc" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" default)))
- '(package-selected-packages
-   (quote
-    (nord-theme geiser lsp-ui company-lsp counsel :ob-rust ob-rust cargo go-playground go-snippets swiper-helm helm-rg yaml-mode markdown-mode doom-themes json-mode js2-mode gotest go-projectile go-eldoc company-go go-mode rainbow-mode elisp-slime-nav rainbow-delimiters helm-ag helm-descbinds helm-projectile helm smex ido-completing-read+ flx-ido zop-to-char zenburn-theme which-key volatile-highlights use-package undo-tree treemacs super-save smartrep smartparens slime rubocop rspec-mode racer projectile-ripgrep operate-on-number move-text magit imenu-anywhere hl-todo guru-mode google-c-style gitignore-mode gitconfig-mode git-timemachine gist flycheck-rust expand-region exec-path-from-shell elpy editorconfig easy-kill discover-my-major diminish diff-hl crux browse-kill-ring beacon anzu all-the-icons))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (zop-to-char zenburn-theme yaml-mode writeroom-mode which-key volatile-highlights use-package undo-tree treemacs swiper-helm super-save smex smartrep smartparens slime rubocop rspec-mode rainbow-mode rainbow-delimiters racer pytest projectile-ripgrep operate-on-number ob-rust nord-theme move-text lsp-ui json-mode js2-mode imenu-anywhere ido-completing-read+ htmlize hl-todo helm-rg helm-projectile helm-descbinds helm-ag guru-mode google-c-style go-snippets go-projectile go-playground gitignore-mode gitconfig-mode git-timemachine gist geiser forge flycheck-rust flx-ido expand-region exec-path-from-shell elpy elisp-slime-nav editorconfig easy-kill dockerfile-mode discover-my-major diminish diff-hl crux counsel company-lsp company-go cargo browse-kill-ring beacon anzu all-the-icons))))
