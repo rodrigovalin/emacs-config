@@ -34,7 +34,7 @@
 
 (use-package elpy
   :ensure t
-  :config (elpy-enable))
+  :init (elpy-enable))
 
 (use-package rspec-mode
   :ensure t)
