@@ -31,7 +31,9 @@
 
 (use-package elpy
   :ensure t
-  :config (elpy-enable))
+  :defer t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable))
 
 (use-package rspec-mode
   :ensure t)
@@ -51,11 +53,9 @@
   (setq inferior-lisp-program "/usr/bin/sbcl")
   (setq slime-contribs '(slime-fancy)))
 
-(use-package nord-theme
-  :ensure t)
 
-;; (setq gofmt-command "goimports")
-;; (add-hook 'before-save-hook 'gofmt-before-save)
+(setq gofmt-command "goimports")
+(add-hook 'before-save-hook 'gofmt-before-save)
 
 
 
@@ -65,15 +65,10 @@
           (lambda ()
             (setq-local whitespace-line-column 120)))
 
-;; (use-package flycheck-rust
-;;   :ensure t)
+;; (load-file "~/.emacs.d/personal/evergreen.el/evergreen.el")
+;; (setq evergreen-projects '("ops-manager-kubernetes", "mms")
+;;       evergreen-default-project "ops-manager-kubernetes")
 
-(use-package racer
-  :ensure t
-  :init
-  (add-hook 'rust-mode-hook #'racer-mode)
-  (add-hook 'racer-mode-hook #'eldoc-mode)
-  )
 
 ;; (use-package treemacs
 ;;   :ensure t)
@@ -109,6 +104,23 @@
 ;; Where are my org files
 (setq org-agenda-files '("~/workspace/agenda"))
 
+(setq org-default-notes-file "~/.todo/tasks.org")
+(setq org-capture-templates
+             '(("w" "Work-related Tasks" entry
+               (file "~/workspace/rodrigovalin/notes/work.org")
+               "* TODO %?" :empty-lines 1)
+
+               ("t" "Personal Tasks" entry
+                (file org-default-notes-file)
+                "* TODO %?" :empty-lines 1)))
+
+(setq org-startup-indented t)
+(setq org-startup-folded "showall")
+(global-set-key (kbd "<f9>") 'org-capture)
+
+(org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))
+
+
 (add-hook 'json-mode-hook
           (lambda ()
             (make-local-variable 'js-indent-level)
@@ -118,20 +130,13 @@
   :ensure t
   :bind (("C-s" . swiper)))
 
-
-(require 'rust-mode)
-(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
-(with-eval-after-load 'rust-mode
-  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
-(setq company-tooltip-align-annotations t)
-
 ;; Do not apply a theme
-(disable-theme 'zenburn)
-(setq prelude-theme nil)
-(setq prelude-theme 'nord)
+;;(disable-theme 'zenburn)
+;;(setq prelude-theme nil)
+;; (setq prelude-theme 'nord)
 
 ;; Use a nice font
-(set-face-attribute 'default nil :family "Roboto Mono" :height 120 :weight 'regular)
+(set-face-attribute 'default nil :family "Roboto Mono" :height 90 :weight 'regular)
 ;; Remove vertical bars from right side
 (fringe-mode '(10 . 0))
 
@@ -139,12 +144,6 @@
 (when (eq system-type 'darwin)
   (setq mac-option-modifier 'meta)
   (setq mac-command-modifier 'meta))
-
-(setq org-startup-indented t)
-(setq org-startup-folded "showall")
-(setq org-directory "~/workspace/")
-
-(org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))
 
 (use-package ob-rust
   :ensure t)
@@ -188,7 +187,7 @@
 ;; (ac-config-default)
 
 ;; Enable own Elisp modules
-(add-to-list 'load-path (substitute-in-file-name "$HOME/workspace/rodrigovalin/elisp"))
+(add-to-list 'load-path (substitute-in-file-name "$HOME/workspace/licorna/elisp"))
 (require 'kube)
 (require 'mci)
 ;; (require 'omclient)
