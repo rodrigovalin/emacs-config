@@ -66,6 +66,7 @@
           (lambda ()
             (setq-local whitespace-line-column 120)))
 
+;; (quelpa '(evergreen :repo "chasinglogic/evergreen.el" :fetcher github))
 ;; (load-file "~/.emacs.d/personal/evergreen.el/evergreen.el")
 ;; (setq evergreen-projects '("ops-manager-kubernetes", "mms")
 ;;       evergreen-default-project "ops-manager-kubernetes")
@@ -110,7 +111,11 @@
 
                ("t" "Personal Tasks" entry
                 (file org-default-notes-file)
-                "* TODO %?" :empty-lines 1)))
+                "* TODO %?" :empty-lines 1)
+
+               ("b" "Bragging Items" entry
+                (file "~/workspace/rodrigovalin/notes/bragging.org")
+                "* %?" :empty-lines 1)))
 
 (setq org-startup-indented t)
 (setq org-startup-folded "showall")
@@ -125,8 +130,7 @@
             (setq js-indent-level 2)))
 
 (use-package swiper-helm
-  :ensure t
-  :bind (("C-s" . swiper)))
+  :ensure t)
 
 ;; Use a nice font
 (set-face-attribute 'default nil :family "Roboto Mono" :height 90 :weight 'regular)
