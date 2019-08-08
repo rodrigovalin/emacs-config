@@ -130,7 +130,9 @@
             (setq js-indent-level 2)))
 
 (use-package swiper-helm
-  :ensure t)
+  :ensure t
+  :init
+  (bind-key "C-." 'swiper-thing-at-point))
 
 ;; Use a nice font
 (set-face-attribute 'default nil :family "Roboto Mono" :height 90 :weight 'regular)
