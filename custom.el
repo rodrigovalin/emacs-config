@@ -17,9 +17,6 @@
 ;; disable emacs original movement keys
 (setq prelude-guru nil)
 
-(use-package forge
-  :after magit)
-
 ;; menu bar is hidden
 (menu-bar-mode -1)
 
@@ -124,6 +121,21 @@
 (org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))
 
 
+;; Shell check
+(use-package flymake-shellcheck
+  :commands flymake-shellcheck-load
+  :init
+  (add-hook 'sh-mode-hook 'flymake-shellcheck-load))
+
+(use-package pyvenv
+  :commands 'pyvenv-workon
+  :init
+  (defun projectile-auto-venv ()
+    "Automatically setup the venv when entering a project"
+    (when (file-exists-p (concat "~/.virtualenvs/" (projectile-project-name)))
+      (pyvenv-workon (projectile-project-name))))
+  (add-hook 'projectile-after-switch-project-hook 'projectile-auto-venv))
+
 (add-hook 'json-mode-hook
           (lambda ()
             (make-local-variable 'js-indent-level)
@@ -135,7 +147,7 @@
   (bind-key "C-." 'swiper-thing-at-point))
 
 ;; Use a nice font
-(set-face-attribute 'default nil :family "Roboto Mono" :height 90 :weight 'regular)
+(set-face-attribute 'default nil :family "Source Code Pro" :height 110 :weight 'regular)
 
 ;; Remove vertical bars from right side
 (fringe-mode '(10 . 0))
