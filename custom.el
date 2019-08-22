@@ -148,6 +148,7 @@
 
 ;; Use a nice font
 (set-face-attribute 'default nil :family "Source Code Pro" :height 110 :weight 'regular)
+(setq cursor-type 'bar)
 
 ;; Remove vertical bars from right side
 (fringe-mode '(10 . 0))
