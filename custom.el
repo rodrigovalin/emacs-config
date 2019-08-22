@@ -148,7 +148,8 @@
 
 ;; Use a nice font
 (set-face-attribute 'default nil :family "Source Code Pro" :height 110 :weight 'regular)
-(setq cursor-type 'bar)
+;; (setq cursor-type 'bar) ;; -> this sets cursor to bar to current buffer
+(setq-default cursor-type 'bar)  ;; -> and this to all buffers!
 
 ;; Remove vertical bars from right side
 (fringe-mode '(10 . 0))
