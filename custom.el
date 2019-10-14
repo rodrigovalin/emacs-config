@@ -31,7 +31,11 @@
 
 (use-package elpy
   :ensure t
-  :init (elpy-enable))
+  :init
+  (elpy-enable)
+  (bind-key "C-c p ." 'pytest-one)
+  (bind-key "C-c p :" 'pytest-module)
+  (bind-key "C-c p /" 'pytest-all))
 
 (use-package rspec-mode
   :ensure t)
